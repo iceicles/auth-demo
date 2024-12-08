@@ -1,8 +1,15 @@
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
 
+interface IUser extends Document {
+  name: string;
+  email: string;
+  password: string;
+  createJWT(): string;
+}
 
-const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema<IUser>({
   name: {
     type: String,
     required: [true, 'Please provide name'],
@@ -30,4 +37,14 @@ userSchema.pre('save', async function () {
   this.password = await bcrypt.hash(this.password, salt);
 })
 
-export default mongoose.model('User', userSchema)
+// creating a JWT
+const JWT_SECRET = process.env.JWT_SECRET as string
+const JWT_LIFETIME = process.env.JWT_LIFETIME as string
+userSchema.methods.createJWT = function () {
+  return jwt.sign({userId: this._id, name: this.name}, JWT_SECRET, { expiresIn: JWT_LIFETIME })
+}
+
+
+export default mongoose.model<IUser>('User', userSchema)
+
+
