@@ -23,10 +23,11 @@ app.use('/api/v1/auth', authRouter)
 // })
 
 const port = process.env.PORT || 4000
+const mongoDBConnectionURL = process.env.MONGO_URI as string
 
 const start = async () => {
   try {
-    await connectDB(process.env.MONGO_URI || '')
+    await connectDB(mongoDBConnectionURL)
     app.listen(port, () => {
       console.log(`Server is listening on port ${port}...`)
     })
