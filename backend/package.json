@@ -1,11 +1,11 @@
 {
-  "name": "backend",
+  "name": "auth-demo-backend",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "start": "nodemon app.ts"
   },
-  "author": "",
+  "author": "iceicles",
   "license": "ISC",
   "description": "",
   "dependencies": {

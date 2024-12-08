@@ -3,19 +3,36 @@ dotenv.config({path: `.env.local`})
 dotenv.config()
 import cors from 'cors'
 import express from 'express'
+import authRouter from './routes/auth'
+import { connectDB } from './db/connect'
 
 const app = express()
 
 // cors
 app.use(cors())
 
-app.get('/', (req, res) =>{
+// middleware
+app.use(express.json())
 
-  res.send('Hello there')
-})
+// auth routes
+app.use('/api/v1/auth', authRouter)
+
+// app.get('/', (req, res) =>{
+
+//   res.send('Hello there')
+// })
 
 const port = process.env.PORT || 4000
 
-app.listen(port, () => {
-  console.log(`Server is listening on port ${port}...`)
-})
+const start = async () => {
+  try {
+    await connectDB(process.env.MONGO_URI || '')
+    app.listen(port, () => {
+      console.log(`Server is listening on port ${port}...`)
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+start()
