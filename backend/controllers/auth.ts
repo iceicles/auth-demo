@@ -3,7 +3,10 @@ import userSchema from "../models/user"
 
 
 export const register = async (req: any, res: any) => {
-  const user = await userSchema.create({...req.body})
+  
+  const { userData } = req.body
+
+  const user = await userSchema.create({...userData})
 
   res.status(StatusCodes.CREATED).json({user, success: true})
 }
