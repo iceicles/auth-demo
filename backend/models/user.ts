@@ -1,12 +1,14 @@
 import mongoose, { Document } from "mongoose";
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+import { JWTSignature } from "../interfaces/JWTSig";
 
 interface IUser extends Document {
   name: string;
   email: string;
   password: string;
   createJWT(): string;
+  comparePassword(arg: string): string;
 }
 
 const userSchema = new mongoose.Schema<IUser>({
@@ -41,7 +43,13 @@ userSchema.pre('save', async function () {
 const JWT_SECRET = process.env.JWT_SECRET as string
 const JWT_LIFETIME = process.env.JWT_LIFETIME as string
 userSchema.methods.createJWT = function () {
-  return jwt.sign({userId: this._id, name: this.name}, JWT_SECRET, { expiresIn: JWT_LIFETIME })
+  return jwt.sign({userId: this._id, name: this.name} as JWTSignature, JWT_SECRET, { expiresIn: JWT_LIFETIME })
+}
+
+// compare encrypted passwords
+userSchema.methods.comparePassword = async function(candidatePassword: string) {
+  const isMatch = await bcrypt.compare(candidatePassword, this.password)
+  return isMatch
 }
 
 
