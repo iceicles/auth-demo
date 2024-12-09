@@ -6,7 +6,14 @@ export default function Home() {
     // render big button that only auth users can access
     // add animations to make it shiny n stuff
     // if user clicks and are not signed in, make box shake side-to-side and have toptip reminding them to sign in or create an account
-    return <Button>GIFT BOX</Button>;
+    // read token from local storage
+    // if valid token exists, redirect user to dashboard
+
+    return (
+      <Button>
+        <Link href='/dashboard'>GIFT BOX</Link>
+      </Button>
+    );
   }
 
   return (
