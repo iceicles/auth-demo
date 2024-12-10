@@ -29,23 +29,21 @@ export default function Login() {
           Accept: 'application/json',
           'Content-type': 'application/json',
         },
-        body: JSON.stringify({
-          userData,
-        }),
+        body: JSON.stringify({ userData }),
+        credentials: 'include', // allows cookies to be sent with the request and subsequent ones
       });
 
       if (data.ok) {
         const res = (await data.json()) as response;
-        console.log('res - ', res);
         const { success, token } = res;
-        console.log(success);
-        // save JWT and user's name in local storage
-        localStorage.setItem(LocalStorage.TOKEN, token);
-        // navigate authenticated user to dashboard
-        router.push('/dashboard');
+        if (success) {
+          // Save JWT to localStorage
+          localStorage.setItem(LocalStorage.TOKEN, token);
+          router.push('/dashboard');
+        }
       }
     } catch (error) {
-      console.log('error - ', error);
+      console.log('error -> ', error);
     }
   };
 
