@@ -1,6 +1,7 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { LocalStorage } from '@/enum/localStorage';
+import { useAuth } from '@/hooks/useAuth';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -22,11 +23,12 @@ export default function Dashboard() {
 
   // const refreshToken = getCookie('refreshToken');
 
+  const { user } = useAuth();
+
   useEffect(() => {
     // saved in local storage from login or register page
-    const accessToken = localStorage.getItem(LocalStorage.TOKEN);
-
-    getUserData(accessToken);
+    // const accessToken = localStorage.getItem(LocalStorage.TOKEN);
+    // getUserData(accessToken);
     // if token is available, fetch user data directly
     //if (accessToken) {
     //} else {
@@ -35,7 +37,6 @@ export default function Dashboard() {
     // setIsAuthenticated(false);
     // router.push('/');
     //}
-
     // TODO:
     // invalidate session if user edits the token in local storage <<<------
     // create a new token and store in local storage when user deletes token in local storage <<<------
@@ -110,8 +111,9 @@ export default function Dashboard() {
 
   return (
     <>
-      {renderDashboardMsg()}
-      {isAuthenticated && <Button onClick={onLogoutClick}>Logout</Button>}
+      <h1>Hi, {user} </h1>
+      {/* {renderDashboardMsg()}
+      {isAuthenticated && <Button onClick={onLogoutClick}>Logout</Button>} */}
     </>
   );
 }

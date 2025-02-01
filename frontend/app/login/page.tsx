@@ -1,17 +1,19 @@
 'use client';
 import { LoginForm } from '@/components/login-form';
 import { LocalStorage } from '@/enum/localStorage';
+import { useAuth } from '@/hooks/useAuth';
 import { IFormValues } from '@/interfaces/form';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
 interface response {
   user: string;
-  token: string;
   success: boolean;
 }
 
 export default function Login() {
+  const { setAuthUser } = useAuth();
+
   const { register, handleSubmit } = useForm<IFormValues>({
     defaultValues: {
       email: '',
@@ -35,10 +37,12 @@ export default function Login() {
 
       if (data.ok) {
         const res = (await data.json()) as response;
-        const { success, token } = res;
+        const { success } = res;
         if (success) {
+          console.log('success!!');
           // Save JWT to localStorage
-          localStorage.setItem(LocalStorage.TOKEN, token);
+          // localStorage.setItem(LocalStorage.TOKEN, token);
+          setAuthUser(res.user);
           router.push('/dashboard');
         }
       }
