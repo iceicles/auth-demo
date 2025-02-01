@@ -20,7 +20,8 @@ const corsOptions = {
 app.use(cors(corsOptions))
 
 // Before any route or middleware that accesses cookies
-app.use(cookieParser());
+// secret passed to cookieParser is required for signed cookies
+app.use(cookieParser(process.env.JWT_SECRET)); 
 
 // middleware
 app.use(express.json())
