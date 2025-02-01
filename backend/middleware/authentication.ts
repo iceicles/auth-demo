@@ -2,6 +2,8 @@ import jwt from 'jsonwebtoken'
 import { UnauthenticatedError } from '../errors/index'
 import { JWTSignature } from '../interfaces/JWTSig';
 import { generateAccessToken } from '../models/user';
+import { attachCookiesToResponse, isTokenValid } from '../utils';
+import token from '../models/token';
 
 
 /* 
@@ -11,46 +13,50 @@ import { generateAccessToken } from '../models/user';
   - If the refresh token is invalid or missing, it will respond with an error.
 */
 export const auth = async (req: any, res: any, next: any) => {
-  // check header
-  const authHeader = req.headers.authorization;
 
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    throw new UnauthenticatedError('Authentication invalid - no token provided')
-  }
+  const { refreshToken, accessToken } = req.signedCookies;
 
-  // get token
-  const token = authHeader.split(' ')[1]
-
-  if (!token) refreshAccessToken(req, res, next)
-
-  // if there is a token, decode and pass user (name and id) to dashboard endpoint
-  // if there is a token BUT it is either expired or invalid, go to catch block
   try {
-    const JWT_SECRET = process.env.ACCESS_TOKEN_SECRET as string
-    // decode & verify token 
-    const decodedPayload = jwt.verify(token, JWT_SECRET) as JWTSignature // catch block will be called if verify check fails
+    // check access token first because it'll have a shorter expiration
+    if (accessToken) {
+      const payload = isTokenValid(accessToken);
+      req.user = payload.name;
+      return next();
+    }
 
-  
-    // get the userId and name used to create JWT
-    const { userId, name} = decodedPayload
-    
-    // generate access token with userId and name
-    // const { accessToken } = generateAccessToken(userId, name)
+   // checks if refresh token is valid using jwt.verify
+    // decoded using the tokenUser object in login controller and refreshToken value passed to attachCookiesToResponse
+    // -- this is why we can access userId and refreshToken after decoding on payload
+    const payload = isTokenValid(refreshToken);
 
-    // attach user to dashboard route (send accessToken to frontend to store in local storage)
-    req.user = { userId, name }
+    // get existing token from db
+    const existingToken = await token.findOne({
+      // both userId (user_.id) and refreshToken properties were used to sign the JWT for refreshToken in attachCookiesToResponse
+      user: payload.userId,
+      refreshToken: payload.refreshToken,
+    });
 
-    console.log('[auth middlware] try block')
+    // check if token doesn't exist and is valid is false
+    // note: isValid can be used to restrict access to user in the future (for any reasons :] )
+    if (!existingToken || !existingToken?.isValid) {
+      throw new UnauthenticatedError('Authentication Invalid');
+    }
 
-    // call next middleware
-    next()
+    // attach both tokens to cookies in response
+    attachCookiesToResponse({
+      res,
+      user: payload, // payload contains the JWT signature used to sign both tokens
+      refreshToken: existingToken.refreshToken, // use refreshToken from db to sign refreshToken (not used for access token)
+    });
+
+    // attach user to req.user to be used by other middleware(s)/controller(s)
+    // for example, /showMe endpoint passes req.user in response
+    // it should be the payload user since it was used to sign the JWT
+    req.user = payload;
+    next(); // call next middleware
   } catch (error) {
-    console.log('[auth middleware] catch block')
-    // if there is a token BUT it is expired, or invalid, try refreshing 
-    // return refreshAccessToken(req, res, next)
-    throw new UnauthenticatedError(
-      'Authentication invalid - Not authorized to access this resource'
-    );
+    // when the refresh token expires --
+    throw new UnauthenticatedError('Authentication Invalid');
   }
 }
 
