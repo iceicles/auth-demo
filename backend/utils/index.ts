@@ -1,9 +1,9 @@
 import { createTokenUser } from "./createTokenUser";
-import { createJWT, isValidToken, attachCookiesToResponse } from "./jwt";
+import { createJWT, isTokenValid, attachCookiesToResponse } from "./jwt";
 
 export {
   createTokenUser,
   createJWT,
-  isValidToken,
+  isTokenValid,
   attachCookiesToResponse
 }

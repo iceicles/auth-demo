@@ -3,13 +3,14 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { JWTSignature } from "../interfaces/JWTSig";
 
-interface IUser extends Document {
+export interface IUser extends Document {
   name: string;
   email: string;
   password: string;
   createJWT(): string;
   createRefreshToken(): string;
   comparePassword(arg: string): string;
+  _id: string;
 }
 
 const userSchema = new mongoose.Schema<IUser>({
