@@ -3,7 +3,6 @@ import userSchema from "../models/user"
 import { BadRequestError, UnauthenticatedError } from "../errors";
 import jwt from 'jsonwebtoken'
 import { attachCookiesToResponse, createTokenUser } from "../utils";
-import { JWTSignature } from "../interfaces/JWTSig";
 import token from "../models/token";
 import crypto from 'crypto'
 

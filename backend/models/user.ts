@@ -1,7 +1,6 @@
 import mongoose, { Document } from "mongoose";
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-import { JWTSignature } from "../interfaces/JWTSig";
 
 export interface IUser extends Document {
   name: string;
@@ -42,18 +41,18 @@ userSchema.pre('save', async function () {
 })
 
 // generate initial JWT - access token
-const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET as string
-const ACCESS_TOKEN_LIFETIME = process.env.ACCESS_TOKEN_LIFETIME as string
-userSchema.methods.createJWT = function () {
-  return jwt.sign({userId: this._id, name: this.name} as JWTSignature, ACCESS_TOKEN_SECRET, { expiresIn: ACCESS_TOKEN_LIFETIME })
-}
+// const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET as string
+// const ACCESS_TOKEN_LIFETIME = process.env.ACCESS_TOKEN_LIFETIME as string
+// userSchema.methods.createJWT = function () {
+//   return jwt.sign({userId: this._id, name: this.name} as JWTSignature, ACCESS_TOKEN_SECRET, { expiresIn: ACCESS_TOKEN_LIFETIME })
+// }
 
 // generate refresh token
-const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET as string
-const REFRESH_TOKEN_LIFETIME = process.env.REFRESH_TOKEN_LIFETIME as string
-userSchema.methods.createRefreshToken = function () {
-  return jwt.sign({userId: this._id, name: this.name} as JWTSignature, REFRESH_TOKEN_SECRET, { expiresIn: REFRESH_TOKEN_LIFETIME })
-}
+// const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET as string
+// const REFRESH_TOKEN_LIFETIME = process.env.REFRESH_TOKEN_LIFETIME as string
+// userSchema.methods.createRefreshToken = function () {
+//   return jwt.sign({userId: this._id, name: this.name} as JWTSignature, REFRESH_TOKEN_SECRET, { expiresIn: REFRESH_TOKEN_LIFETIME })
+// }
 
 // compare encrypted passwords
 userSchema.methods.comparePassword = async function(candidatePassword: string) {
@@ -62,10 +61,10 @@ userSchema.methods.comparePassword = async function(candidatePassword: string) {
 }
 
 // Used when generating a new access token after decoding the refresh token in auth middleware
-export function generateAccessToken(id: string, name: string) {
-  let accessToken = jwt.sign({userId: id, name: name} as JWTSignature, ACCESS_TOKEN_SECRET, { expiresIn: ACCESS_TOKEN_LIFETIME })
-  return { accessToken }
-}
+// export function generateAccessToken(id: string, name: string) {
+//   let accessToken = jwt.sign({userId: id, name: name} as JWTSignature, ACCESS_TOKEN_SECRET, { expiresIn: ACCESS_TOKEN_LIFETIME })
+//   return { accessToken }
+// }
 
 // export function generateRefreshToken(id: string, name: string) {
 //   return jwt.sign({userId: id, name: name} as JWTSignature, REFRESH_TOKEN_SECRET, { expiresIn: REFRESH_TOKEN_LIFETIME })

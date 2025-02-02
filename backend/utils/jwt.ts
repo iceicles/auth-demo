@@ -1,20 +1,20 @@
 import jwt from 'jsonwebtoken'
-import { JWTSignature } from '../interfaces/JWTSig'
+import { IJWTSignature, ITokenUser } from '../interfaces/JWTSig'
 
 
 const JWT_SECRET = process.env.JWT_SECRET || ''
 
 // creates JWT with createTokenUser object
-export const createJWT = ({ payload }: {payload: {user: JWTSignature, refreshToken?: string}}) => {
+export const createJWT = ({ payload }: {payload: {user: ITokenUser, refreshToken?: string}}) => {
   const token = jwt.sign(payload, JWT_SECRET)
   return token
 }
 
 // validates JWT
-export const isTokenValid = (token: string) => jwt.verify(token, JWT_SECRET) as JWTSignature
+export const isTokenValid = (token: string) => jwt.verify(token, JWT_SECRET) as IJWTSignature
 
 // sends cookies to frontend using set-cookie in response headers
-export const attachCookiesToResponse = ({ res, user, refreshToken }: {res: any, user: JWTSignature, refreshToken: string})  => {
+export const attachCookiesToResponse = ({ res, user, refreshToken }: {res: any, user: ITokenUser, refreshToken: string})  => {
 
   const accessTokenJWT = createJWT({payload: {user}})
   const refreshTokenJWT = createJWT({ payload: {user, refreshToken}})
