@@ -14,23 +14,26 @@ export const AuthProvider = ({ children }: { children: any }) => {
     setUser(userData);
   };
 
-  // const removeUser = () => {
-  //   setUser('');
-  // };
+  const removeUser = () => {
+    setUser('');
+  };
 
-  // const fetchUser = async () => {
-  //   try {
-  //     const data = await fetch(`http://localhost:4000/api/v1/auth/showMe`);
-  //     const res = await data.json();
-  //     setUser(res.user);
-  //   } catch (error) {
-  //     removeUser();
-  //   }
-  // };
+  // fetch to check if user is authenticated
+  const fetchUser = async () => {
+    try {
+      const data = await fetch(`http://localhost:4000/api/v1/users/showMe`, {
+        credentials: 'include',
+      });
+      const res = await data.json();
+      setUser(res.user);
+    } catch (error) {
+      removeUser();
+    }
+  };
 
-  // useEffect(() => {
-  //   fetchUser();
-  // }, []);
+  useEffect(() => {
+    fetchUser();
+  }, []);
 
   return (
     <AuthContext.Provider value={{ user, setAuthUser }}>
