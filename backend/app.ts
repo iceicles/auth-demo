@@ -5,7 +5,7 @@ dotenv.config()
 import cors from 'cors'
 import express from 'express'
 import authRouter from './routes/auth'
-import dashboardRouter from './routes/dashboard'
+import userRouter from './routes/user'
 import { connectDB } from './db/connect'
 import cookieParser from 'cookie-parser';
 
@@ -28,7 +28,7 @@ app.use(express.json())
 
 // auth routes
 app.use('/api/v1/auth', authRouter)
-app.use('/api/v1/', dashboardRouter)
+app.use('/api/v1/users', userRouter)
 
 // app.get('/', (req, res) =>{
 
