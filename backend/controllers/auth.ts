@@ -106,5 +106,5 @@ export const logout = async(req: any, res: any) => {
     expires: new Date(Date.now())
   })
 
-  res.send(StatusCodes.OK).json({msg: 'user logged out!'})
+  res.status(StatusCodes.OK).json({msg: 'user logged out!'})
 } 
