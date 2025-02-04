@@ -8,6 +8,8 @@ import authRouter from './routes/auth'
 import userRouter from './routes/user'
 import { connectDB } from './db/connect'
 import cookieParser from 'cookie-parser';
+import { notFoundMW } from './middleware/not-found'
+import {errorHandlerMW} from './middleware/error-handler'
 
 const app = express()
 
@@ -29,6 +31,9 @@ app.use(express.json())
 // auth routes
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/users', userRouter)
+
+app.use(notFoundMW);
+app.use(errorHandlerMW);
 
 // app.get('/', (req, res) =>{
 
