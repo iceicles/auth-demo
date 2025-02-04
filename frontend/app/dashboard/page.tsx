@@ -58,7 +58,7 @@ export default function Dashboard() {
   return (
     <div className='bg-gray-400 h-screen'>
       <HeaderNav />
-      <div className='flex flex-col items-center justify-center h-[80vh] bg-slate-900 rounded text-white mx-[40px] mt-14'>
+      <div className='flex flex-col items-center justify-center h-[80vh] md:bg-slate-900 rounded md:text-white mx-[40px] mt-14'>
         <h1 className='text-4xl'>{renderRandomGreeting()}</h1>
         {/* insert quote of the day here */}
       </div>
