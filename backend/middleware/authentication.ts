@@ -2,7 +2,6 @@ import { UnauthenticatedError } from '../errors/index'
 import { attachCookiesToResponse, isTokenValid } from '../utils';
 import token from '../models/token';
 
-
 /* 
   Auth middleware to check, verify, and refresh access token
   - First, try to verify the access token.
@@ -51,10 +50,9 @@ export const authenticateUser = async (req: any, res: any, next: any) => {
     / for example, /showMe endpoint passes req.user in response
     / it should be the payload user since it was used to sign the JWT
     */
-    req.user = payload;
+    req.user = payload.user;
     next(); // call next middleware
   } catch (error) {
-    console.log('or here?')
     // when the refresh token expires --
     throw new UnauthenticatedError('Authentication Invalid');
   }
