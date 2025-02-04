@@ -13,6 +13,7 @@ const greetings = [
   'Hello',
   "How's it going",
   'Long time no see',
+  'How goes it',
 ];
 
 export default function Dashboard() {
@@ -20,17 +21,24 @@ export default function Dashboard() {
 
   if (user === '') {
     return (
-      <div className='flex items-center justify-center min-h-screen'>
+      <div className='flex items-center justify-center min-h-screen mx-8 md:mx-0 leading-[45px] md:leading-8'>
         <span>
-          It looks like you're not signed in. If you have an account, please
-          <a href='/login' className='border-b-2 border-b-green-800 p-2'>
+          Huh, It looks like you're not signed in! <br /> If you have an
+          account, please
+          <a
+            href='/login'
+            className='p-2 underline underline-offset-8 decoration-green-800'
+          >
             {' '}
             Sign in{' '}
           </a>
-          . Otherwise, please
-          <a href='/register' className='border-b-2 border-b-green-800 p-2'>
+          . Otherwise, you can
+          <a
+            href='/register'
+            className='p-2 underline underline-offset-8 decoration-green-800'
+          >
             {' '}
-            Create One
+            Create an account
           </a>
         </span>
       </div>
