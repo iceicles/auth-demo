@@ -24,7 +24,6 @@ export const register = async (req: any, res: any) => {
 
 export const login = async (req: any, res: any) => {
   const { userData } = req.body
-  console.log('userdata  - ', userData)
   const { email, password } = userData as IUserData
 
   // if no email or password is provided by user
@@ -93,3 +92,19 @@ export const login = async (req: any, res: any) => {
 
   res.status(StatusCodes.OK).json({user: tokenUser.name, success: true})
 }
+
+export const logout = async(req: any, res: any) => {
+  await token.findOneAndDelete({user: req.user.userId})
+
+  res.cookie('accessToken', 'logout', {
+    httpOnly: true,
+    expires: new Date(Date.now())
+  })
+
+  res.cookie('refreshToken', 'logout', {
+    httpOnly: true,
+    expires: new Date(Date.now())
+  })
+
+  res.send(StatusCodes.OK).json({msg: 'user logged out!'})
+} 
