@@ -1,35 +1,36 @@
+import { HeaderNav } from '@/components/HeaderNav';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
 export default function Home() {
-  function clickMeBtn() {
+  function dashboardBtn() {
     return (
-      <Button>
-        <Link href='/dashboard'>CLICK ME</Link>
-      </Button>
+      <Link
+        href='/dashboard'
+        className='mt-10 p-6 border-b-2 border-b-green-700'
+      >
+        DASHBOARD 🎉
+      </Link>
     );
   }
 
   return (
-    <div className='flex flex-col items-center justify-center h-screen'>
-      <h1>
-        Auth App built with MERN. To access the special giftbox, please sign in
-        with your account.
-      </h1>
-      <h2>Sign-in if you have an account, otherwise, sign up. </h2>
-      <i>
-        Tip: you can use a throwaway inbox such as <a href='#'>yopmail</a> or{' '}
-        <a href='#'>mailinator</a>
-      </i>
-      <div>
-        <Button>
-          <Link href='/login'>Login</Link>
-        </Button>
-        <Button>
-          <Link href='/register'>Register</Link>
-        </Button>
+    <>
+      <HeaderNav />
+      <div className='flex flex-col items-center justify-center h-screen'>
+        <div className='m-10 sm:border sm:border-dashed sm:border-slate-800 sm:p-[60px]'>
+          <h1 className='mb-4'>
+            Full-stack Authentication Demo App built with MERN stack. <br />
+            Clicking the dashboard link takes you to your dashboard. <br /> If
+            you don't have an account, please create one!
+          </h1>
+          <i>
+            Tip: you can use a throwaway inbox such as <a href='#'>yopmail</a>{' '}
+            or <a href='#'>mailinator</a>
+          </i>
+        </div>
+        {dashboardBtn()}
       </div>
-      {clickMeBtn()}
-    </div>
+    </>
   );
 }
