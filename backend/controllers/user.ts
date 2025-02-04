@@ -1,7 +1,3 @@
-// import { generateRefreshToken } from "../models/user";
-
-import { NotFoundError } from "../errors";
-import user from "../models/user";
 import { StatusCodes } from "http-status-codes";
 
 
@@ -10,7 +6,8 @@ import { StatusCodes } from "http-status-codes";
   console.log(req.user);
   const users = await user.find({ role: 'user' }).select('-password');
   res.status(StatusCodes.OK).json({ users });
-}; */
+}; 
+*/
 
 // gets a single user without their password
 /* export const getSingleUser = async (req: any, res: any) => {
@@ -20,7 +17,7 @@ import { StatusCodes } from "http-status-codes";
   }
   res.status(StatusCodes.OK).json({ singleUser });
 };
- */
+*/
 
 // returns currently signed-in user
 export const showCurrentUser = async (req: any, res: any) => {

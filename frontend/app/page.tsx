@@ -2,16 +2,10 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
 export default function Home() {
-  function giftBoxComponent() {
-    // render big button that only auth users can access
-    // add animations to make it shiny n stuff
-    // if user clicks and are not signed in, make box shake side-to-side and have toptip reminding them to sign in or create an account
-    // read token from local storage
-    // if valid token exists, redirect user to dashboard
-
+  function clickMeBtn() {
     return (
       <Button>
-        <Link href='/dashboard'>GIFT BOX</Link>
+        <Link href='/dashboard'>CLICK ME</Link>
       </Button>
     );
   }
@@ -35,7 +29,7 @@ export default function Home() {
           <Link href='/register'>Register</Link>
         </Button>
       </div>
-      {giftBoxComponent()}
+      {clickMeBtn()}
     </div>
   );
 }

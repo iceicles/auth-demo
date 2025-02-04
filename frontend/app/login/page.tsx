@@ -1,6 +1,5 @@
 'use client';
-import { LoginForm } from '@/components/login-form';
-import { LocalStorage } from '@/enum/localStorage';
+import { LoginForm } from '@/components/LoginForm';
 import { useAuth } from '@/hooks/useAuth';
 import { IFormValues } from '@/interfaces/form';
 import { useRouter } from 'next/navigation';
@@ -39,15 +38,12 @@ export default function Login() {
         const res = (await data.json()) as response;
         const { success } = res;
         if (success) {
-          console.log('success!!');
-          // Save JWT to localStorage
-          // localStorage.setItem(LocalStorage.TOKEN, token);
           setAuthUser(res.user);
           router.push('/dashboard');
         }
       }
     } catch (error) {
-      console.log('error -> ', error);
+      console.log('error: ', error);
     }
   };
 

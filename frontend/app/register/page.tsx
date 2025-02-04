@@ -1,5 +1,5 @@
 'use client';
-import { RegisterForm } from '@/components/register-form';
+import { RegisterForm } from '@/components/RegisterForm';
 import { IFormValues } from '@/interfaces/form';
 import { useForm } from 'react-hook-form';
 
@@ -24,7 +24,7 @@ export default function Register() {
         }),
       });
     } catch (error) {
-      console.log('error - ', error);
+      console.log('error: ', error);
     }
   };
 

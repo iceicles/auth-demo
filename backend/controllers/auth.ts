@@ -1,7 +1,6 @@
 import { StatusCodes } from "http-status-codes"
 import userSchema from "../models/user"
 import { BadRequestError, UnauthenticatedError } from "../errors";
-import jwt from 'jsonwebtoken'
 import { attachCookiesToResponse, createTokenUser } from "../utils";
 import token from "../models/token";
 import crypto from 'crypto'
@@ -48,9 +47,7 @@ export const login = async (req: any, res: any) => {
     throw new UnauthenticatedError('Invalid Credentials')
   }
 
-  // create access token (this will be sent back to the client for decoding)
-  // const token = user?.createJWT(); 
-  // returns object used to sign JWT
+  // token user object used for the user property in signing the JWT
   const tokenUser = createTokenUser(user)
 
   // init refresh token
@@ -95,32 +92,4 @@ export const login = async (req: any, res: any) => {
   attachCookiesToResponse({res, user: tokenUser, refreshToken})
 
   res.status(StatusCodes.OK).json({user: tokenUser.name, success: true})
-
-
-  // create refresh token
-  // const refreshToken = user.createRefreshToken();
-
-  // set the refresh token in HttpOnly cookie - this gets used by auth middleware if access token expires or is invalid
-  // res.cookie('refreshToken', refreshToken, {
-  //   httpOnly: true, // ensure the cookie is not accessible via javascript
-  //   secure: process.env.NODE_ENV === 'production', // only true in production
-  //   sameSite: 'Strict', // prevents cross-site request forgery attacks
-  //   maxAge: 7 * 24 * 60 * 60 * 1000, // set a maxAge for the cookie (1 week in this case)
-  // })
-
-  // res.status(StatusCodes.OK).json({user: {email}, token, success: true})
 }
-
-// endpoint for refreshing the access token
-// export const refreshAccessToken = async (req: any, res: any) => {
-//   const refreshToken = req.cookies.refreshToken; // passed in from the front end request
-
-//   // if there is no refresh token, throw an error
-//   if (!refreshToken) {
-//     throw new UnauthenticatedError('No refresh token provided')
-//   }
-
-  
-
-// }
-
