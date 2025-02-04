@@ -21,7 +21,6 @@ import { StatusCodes } from "http-status-codes";
 
 // returns currently signed-in user
 export const showCurrentUser = async (req: any, res: any) => {
-  console.log('req.user - ', req.user)
-  const {user: { name }} = req.user
+  const { name } = req.user
   res.status(StatusCodes.OK).json({ user: name});
 };
