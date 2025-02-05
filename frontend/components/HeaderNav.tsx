@@ -23,8 +23,6 @@ export const HeaderNav = () => {
     }
   };
 
-  console.log('user - ', user);
-
   const renderLoginBtn = () => {
     return (
       <nav className='mx-4 border-b-2 border-gray-900 p-8 sm:w-[500px] sm:mx-10'>

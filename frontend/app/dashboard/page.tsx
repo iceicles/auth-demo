@@ -19,7 +19,7 @@ const greetings = [
 export default function Dashboard() {
   const { user } = useAuth();
 
-  if (user === '') {
+  if (!user) {
     return (
       <div className='flex items-center justify-center min-h-screen mx-8 md:mx-0 leading-[45px] md:leading-8'>
         <span>
