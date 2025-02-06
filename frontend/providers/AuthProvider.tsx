@@ -1,4 +1,5 @@
 'use client';
+import { API_URL } from '@/endpoint.constant';
 import { IAuthUser } from '@/interfaces/authUser';
 import { createContext, useEffect, useState } from 'react';
 
@@ -21,7 +22,7 @@ export const AuthProvider = ({ children }: { children: any }) => {
   // fetch to check if user is authenticated
   const fetchUser = async () => {
     try {
-      const data = await fetch(`http://localhost:4000/api/v1/users/showMe`, {
+      const data = await fetch(`${API_URL}/users/showMe`, {
         credentials: 'include',
       });
       const res = await data.json();

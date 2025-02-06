@@ -1,4 +1,5 @@
 'use client';
+import { API_URL } from '@/endpoint.constant';
 import { useAuth } from '@/hooks/useAuth';
 import { useRouter } from 'next/navigation';
 
@@ -9,7 +10,7 @@ export const HeaderNav = () => {
 
   const logoutHandler = async () => {
     try {
-      const request = await fetch('http://localhost:4000/api/v1/auth/logout', {
+      const request = await fetch(`${API_URL}/auth/logout`, {
         method: 'delete',
         credentials: 'include',
       });

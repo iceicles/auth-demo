@@ -1,5 +1,6 @@
 'use client';
 import { LoginForm } from '@/components/LoginForm';
+import { API_URL } from '@/endpoint.constant';
 import { useAuth } from '@/hooks/useAuth';
 import { IFormValues } from '@/interfaces/form';
 import { useRouter } from 'next/navigation';
@@ -24,7 +25,7 @@ export default function Login() {
 
   const sendFormData = async (userData: IFormValues) => {
     try {
-      const data = await fetch('http://localhost:4000/api/v1/auth/login', {
+      const data = await fetch(`${API_URL}/auth/login`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',

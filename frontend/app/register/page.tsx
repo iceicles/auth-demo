@@ -1,5 +1,6 @@
 'use client';
 import { RegisterForm } from '@/components/RegisterForm';
+import { API_URL } from '@/endpoint.constant';
 import { IFormValues } from '@/interfaces/form';
 import { useForm } from 'react-hook-form';
 
@@ -13,7 +14,7 @@ export default function Register() {
 
   const sendFormData = async (userData: IFormValues) => {
     try {
-      await fetch('http://localhost:4000/api/v1/auth/register', {
+      await fetch(`${API_URL}/auth/register`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
