@@ -32,6 +32,7 @@ export const AuthProvider = ({ children }: { children: any }) => {
       setIsLoading(false);
     } catch (error) {
       removeUser();
+      setIsLoading(false);
     }
   };
 
