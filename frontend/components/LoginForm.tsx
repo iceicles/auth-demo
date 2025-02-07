@@ -51,7 +51,7 @@ export const LoginForm: FC<LoginForm> = ({
                 name={email}
                 id='email'
                 type='email'
-                placeholder='jj@example.com'
+                placeholder='abc@example.com'
                 required
               />
             </div>

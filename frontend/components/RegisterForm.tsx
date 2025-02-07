@@ -53,7 +53,7 @@ export const RegisterForm: FC<RegisterForm> = ({
                 name={name}
                 id='name'
                 type='text'
-                placeholder='jj'
+                placeholder='abc'
                 required
               />
             </div>
@@ -64,7 +64,7 @@ export const RegisterForm: FC<RegisterForm> = ({
                 name={email}
                 id='email'
                 type='email'
-                placeholder='jj@example.com'
+                placeholder='abc@example.com'
                 required
               />
             </div>
