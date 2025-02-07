@@ -1,10 +1,20 @@
 'use client';
 import { RegisterForm } from '@/components/RegisterForm';
 import { API_URL } from '@/endpoint.constant';
+import { useAuth } from '@/hooks/useAuth';
 import { IFormValues } from '@/interfaces/form';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
 export default function Register() {
+  const { user } = useAuth();
+
+  const router = useRouter();
+
+  if (user) {
+    router.push('/dashboard');
+  }
+
   const { register, handleSubmit } = useForm<IFormValues>({
     defaultValues: {
       email: '',
@@ -14,7 +24,7 @@ export default function Register() {
 
   const sendFormData = async (userData: IFormValues) => {
     try {
-      await fetch(`${API_URL}/auth/register`, {
+      const data = await fetch(`${API_URL}/auth/register`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -24,6 +34,15 @@ export default function Register() {
           userData,
         }),
       });
+      if (data.ok) {
+        const { success } = await data.json();
+        if (success) {
+          alert(
+            'You have successfully created an account. Please login with your email and password'
+          );
+          router.push('/login');
+        }
+      }
     } catch (error) {
       console.log('error: ', error);
     }
