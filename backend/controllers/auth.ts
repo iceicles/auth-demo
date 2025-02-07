@@ -14,11 +14,9 @@ interface IUserData {
 export const register = async (req: any, res: any) => {
   const { userData } = req.body
 
-  const user = await userSchema.create({...userData})
+  await userSchema.create({...userData})
 
-  const token = user.createJWT()
-
-  res.status(StatusCodes.CREATED).json({user: {name: userData.name}, token, success: true})
+  res.status(StatusCodes.CREATED).json({success: true})
 }
 
 
