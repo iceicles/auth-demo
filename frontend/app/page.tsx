@@ -1,8 +1,19 @@
+'use client';
 import { AuthenticationStatus } from '@/components/AuthenticationStatus';
 import { HeaderNav } from '@/components/HeaderNav';
+import { useAuth } from '@/hooks/useAuth';
 import Link from 'next/link';
 
 export default function Home() {
+  const { isLoading } = useAuth();
+
+  if (isLoading) {
+    return (
+      <div className='flex flex-col items-center justify-center h-screen relative'>
+        <div className='spinner'></div>
+      </div>
+    );
+  }
   function dashboardBtn() {
     return (
       <Link

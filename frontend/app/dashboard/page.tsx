@@ -17,8 +17,15 @@ const greetings = [
 ];
 
 export default function Dashboard() {
-  const { user } = useAuth();
+  const { user, isLoading } = useAuth();
 
+  if (isLoading) {
+    return (
+      <div className='flex items-center justify-center min-h-screen mx-8 md:mx-0 leading-[45px] md:leading-'>
+        <div className='spinner'></div>
+      </div>
+    );
+  }
   if (!user) {
     return (
       <div className='flex items-center justify-center min-h-screen mx-8 md:mx-0 leading-[45px] md:leading-8'>
