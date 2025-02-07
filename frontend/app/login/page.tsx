@@ -12,7 +12,13 @@ interface response {
 }
 
 export default function Login() {
-  const { setAuthUser } = useAuth();
+  const { user, setAuthUser } = useAuth();
+
+  const router = useRouter();
+
+  if (user) {
+    router.push('/dashboard');
+  }
 
   const { register, handleSubmit } = useForm<IFormValues>({
     defaultValues: {
@@ -20,8 +26,6 @@ export default function Login() {
       password: '',
     },
   });
-
-  const router = useRouter();
 
   const sendFormData = async (userData: IFormValues) => {
     try {
