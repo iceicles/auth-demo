@@ -15,7 +15,7 @@ export const authenticateUser = async (req: any, res: any, next: any) => {
     // check access token first because it'll have a shorter expiration
     if (accessToken) {
       const payload = isTokenValid(accessToken);
-      req.user = payload.user.name;
+      req.user = payload.user;
       return next();
     }
 
@@ -35,7 +35,6 @@ export const authenticateUser = async (req: any, res: any, next: any) => {
     // check if token doesn't exist and is valid is false
     // note: isValid can be used to restrict access to user in the future (for any reasons :] )
     if (!existingToken || !existingToken?.isValid) {
-      console.log('here?')
       throw new UnauthenticatedError('Authentication Invalid');
     }
 
