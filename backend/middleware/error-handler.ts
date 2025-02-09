@@ -12,9 +12,9 @@ export const errorHandlerMW = (err: any, req: any, res: any, next: any) => {
       customError.statusCode = 400;
     }
     if (err.code && err.code === 11000) {
-      customError.msg = `Duplicate value entered for ${Object.keys(
+      customError.msg = `The chosen ${Object.keys(
         err.keyValue
-      )} field, please choose another value`;
+      )} is in use. Please enter a different email`;
       customError.statusCode = 400;
     }
     if (err.name === 'CastError') {
