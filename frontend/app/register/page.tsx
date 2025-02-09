@@ -28,7 +28,7 @@ export default function Register() {
 
   const sendFormData = async (userData: IFormValues) => {
     try {
-      const data = await fetch(`${API_URL}/auth/register`, {
+      const data = await fetch(`${API_URL}/api/v1/auth/register`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',

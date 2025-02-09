@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }: { children: any }) => {
   const fetchUser = async () => {
     try {
       setIsLoading(true);
-      const data = await fetch(`${API_URL}/users/showMe`, {
+      const data = await fetch(`${API_URL}/api/v1/users/showMe`, {
         credentials: 'include',
       });
       const res = await data.json();
