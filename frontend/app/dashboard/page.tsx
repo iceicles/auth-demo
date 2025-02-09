@@ -30,22 +30,20 @@ export default function Dashboard() {
     return (
       <div className='flex items-center justify-center min-h-screen mx-8 md:mx-0 leading-[45px] md:leading-8'>
         <span>
-          Huh, It looks like you're not signed in! <br /> If you have an
-          account, please
+          Huh, It looks like you're not authorized to access this yet. <br /> If
+          you have an account, please
           <a
             href='/login'
             className='p-2 underline underline-offset-8 decoration-green-800'
           >
-            {' '}
-            Sign in{' '}
+            sign in
           </a>
           . Otherwise, you can
           <a
             href='/register'
             className='p-2 underline underline-offset-8 decoration-green-800'
           >
-            {' '}
-            Create an account
+            create an account
           </a>
         </span>
       </div>

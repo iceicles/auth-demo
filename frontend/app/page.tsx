@@ -44,7 +44,7 @@ export default function Home() {
             Clicking on dashboard below takes you to your personal dashboard.{' '}
             <br /> If you don't have an account, please create one!
           </h1>
-          <i>**You don't need to use an actual email**</i> 😉
+          <i>**You don't need to use an existing/real email**</i> 😉
         </div>
         {dashboardBtn()}
       </div>
