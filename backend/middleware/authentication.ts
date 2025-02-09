@@ -53,6 +53,6 @@ export const authenticateUser = async (req: any, res: any, next: any) => {
     next(); // call next middleware
   } catch (error) {
     // when the refresh token expires --
-    throw new UnauthenticatedError('Authentication Invalid');
+    throw new UnauthenticatedError('Invalid Authentication');
   }
 }
