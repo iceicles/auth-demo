@@ -25,7 +25,7 @@ export const attachCookiesToResponse = ({ res, user, refreshToken }: {res: any, 
   res.cookie('accessToken', accessTokenJWT, {
     httpOnly: true, // ensure the cookie is not accessible via javascript
     secure: process.env.NODE_ENV === 'production', // only true in production
-    sameSite: 'None', 
+    sameSite: process.env.NODE_ENV === 'development' ? 'Strict' : 'None', // client and server on different domains
     signed: true, // verifies that the contents of the cookie have not been changed by the user so it can be trusted
     expires: new Date(Date.now() + oneDay), // 1 day before cookie expires
   })
@@ -33,6 +33,7 @@ export const attachCookiesToResponse = ({ res, user, refreshToken }: {res: any, 
   res.cookie('refreshToken', refreshTokenJWT, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
+    sameSite: process.env.NODE_ENV === 'development' ? 'Strict' : 'None',
     signed: true,
     expires: new Date(Date.now() + longerExp) // 1 day from current date
   })
