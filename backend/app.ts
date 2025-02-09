@@ -10,6 +10,10 @@ import { connectDB } from './db/connect'
 import cookieParser from 'cookie-parser';
 import { notFoundMW } from './middleware/not-found'
 import {errorHandlerMW} from './middleware/error-handler'
+import rateLimiter from 'express-rate-limit'
+import helmet from 'helmet'
+import xss from 'xss'
+import mongoSanitize from 'express-mongo-sanitize'
 
 const app = express()
 
@@ -20,6 +24,15 @@ const corsOptions = {
 }
 // cors
 app.use(cors(corsOptions))
+
+// security pkgs
+app.use(rateLimiter({
+  windowMs: 15 * 60 * 1000,
+  limit: 60
+}))
+app.use(helmet())
+xss('<script>alert("xss");</script>')
+app.use(mongoSanitize())
 
 // Before any route or middleware that accesses cookies
 // secret passed to cookieParser is required for signed cookies
