@@ -25,7 +25,7 @@ export const attachCookiesToResponse = ({ res, user, refreshToken }: {res: any, 
   res.cookie('accessToken', accessTokenJWT, {
     httpOnly: true, // ensure the cookie is not accessible via javascript
     secure: process.env.NODE_ENV === 'production', // only true in production
-    //sameSite: 'Strict',  // prevents cross-site request forgery attacks
+    sameSite: 'None', 
     signed: true, // verifies that the contents of the cookie have not been changed by the user so it can be trusted
     expires: new Date(Date.now() + oneDay), // 1 day before cookie expires
   })
