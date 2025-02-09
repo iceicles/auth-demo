@@ -46,9 +46,14 @@ export default function Register() {
           );
           router.push('/login');
         }
+      } else {
+        const errorData = await data.json(); // get the error response
+        throw new Error(JSON.stringify(errorData)); // throw the error as a stringified object
       }
-    } catch (error) {
+    } catch (error: any) {
       console.log('error: ', error);
+      const errorResponse = JSON.parse(error.message);
+      alert(errorResponse.msg);
     }
   };
 
