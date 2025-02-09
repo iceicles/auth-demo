@@ -14,6 +14,7 @@ import rateLimiter from 'express-rate-limit'
 import helmet from 'helmet'
 import xss from 'xss'
 import mongoSanitize from 'express-mongo-sanitize'
+import { sameOriginMiddleware } from './middleware/same-origin'
 
 const app = express()
 
@@ -40,6 +41,8 @@ app.use(cookieParser(process.env.JWT_SECRET));
 
 // middleware
 app.use(express.json())
+// checks that the origin is the allowed client url
+app.use(sameOriginMiddleware)
 
 // auth routes
 app.use('/api/v1/auth', authRouter)
