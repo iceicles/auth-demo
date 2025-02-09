@@ -15,7 +15,7 @@ const app = express()
 
 
 const corsOptions = {
-  origin: 'http://localhost:3000', // frontend url
+  origin: process.env.CLIENT_URL, // frontend url
   credentials: true, // allows cookies to be sent
 }
 // cors
