@@ -32,14 +32,19 @@ export default function Home() {
         <AuthenticationStatus />
         <div className='m-10 sm:border sm:border-dashed sm:border-slate-800 sm:p-[60px]'>
           <h1 className='mb-4'>
-            Full-stack Authentication Demo App built with MERN stack. <br />
+            This is a Full-stack Authentication Demo App built with{' '}
+            <a
+              href='https://www.geeksforgeeks.org/mern-stack/'
+              target='_blank'
+              className='underline'
+            >
+              MERN
+            </a>{' '}
+            stack. <br />
             Clicking on dashboard below takes you to your personal dashboard.{' '}
             <br /> If you don't have an account, please create one!
           </h1>
-          <i>
-            Tip: you can use a throwaway inbox such as <a href='#'>yopmail</a>{' '}
-            or <a href='#'>mailinator</a>
-          </i>
+          <i>**You don't need to use an actual email**</i> 😉
         </div>
         {dashboardBtn()}
       </div>
