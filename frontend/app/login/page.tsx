@@ -1,4 +1,5 @@
 'use client';
+import { useEffect } from 'react';
 import { LoginForm } from '@/components/LoginForm';
 import { API_URL } from '@/endpoint.constant';
 import { useAuth } from '@/hooks/useAuth';
@@ -16,9 +17,12 @@ export default function Login() {
 
   const router = useRouter();
 
-  if (user) {
-    router.push('/dashboard');
-  }
+  // useEffect to re-direct user to dashboard if authenticated
+  useEffect(() => {
+    if (user) {
+      router.push('/dashboard');
+    }
+  }, [user]);
 
   const { register, handleSubmit } = useForm<IFormValues>({
     defaultValues: {

@@ -1,4 +1,5 @@
 'use client';
+import { useEffect } from 'react';
 import { RegisterForm } from '@/components/RegisterForm';
 import { API_URL } from '@/endpoint.constant';
 import { useAuth } from '@/hooks/useAuth';
@@ -11,9 +12,12 @@ export default function Register() {
 
   const router = useRouter();
 
-  if (user) {
-    router.push('/dashboard');
-  }
+  // useEffect to redirect user to dashboard if authenticated
+  useEffect(() => {
+    if (user) {
+      router.push('/dashboard');
+    }
+  }, [user]);
 
   const { register, handleSubmit } = useForm<IFormValues>({
     defaultValues: {
