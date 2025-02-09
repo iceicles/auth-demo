@@ -1,15 +1,4 @@
 import Link from 'next/link';
-
-import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { IFormValues } from '@/interfaces/form';
 import { FormEventHandler, RefObject, FC } from 'react';
 import { UseFormRegister, Path } from 'react-hook-form';
@@ -37,61 +26,60 @@ export const RegisterForm: FC<RegisterForm> = ({
 }) => {
   return (
     <form onSubmit={onSubmit} ref={ref}>
-      <Card className='mx-auto max-w-sm'>
-        <CardHeader>
-          <CardTitle className='text-2xl'>Register</CardTitle>
-          <CardDescription>
-            Create an account to access your giftbox today
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className='grid gap-4'>
-            <div>
-              <Label htmlFor='name'>Name</Label>
-              <Input
-                {...register(name)}
-                name={name}
-                id='name'
-                type='text'
-                placeholder='abc'
-                required
-              />
-            </div>
-            <div className='grid gap-2'>
-              <Label htmlFor='email'>Email</Label>
-              <Input
-                {...register(email)}
-                name={email}
-                id='email'
-                type='email'
-                placeholder='abc@example.com'
-                required
-              />
-            </div>
-            <div className='grid gap-2'>
-              <div className='flex items-center'>
-                <Label htmlFor='password'>Password</Label>
-              </div>
-              <Input
-                {...register(password)}
-                name={password}
-                id='password'
-                type='password'
-                required
-              />
-            </div>
-            <Button type='submit' className='w-full'>
-              Register
-            </Button>
-          </div>
-          <div className='mt-4 text-center text-sm'>
+      <div className='border-[2px] border-solid border-gray-200 rounded-lg p-8 mx-4 sm:mx-0 text-sm'>
+        <h1 className='text-2xl font-bold mb-2'>Register</h1>
+        <p className='mb-4'>
+          Create an account to access your personal dashboard
+        </p>
+        <div className='flex flex-col gap-4'>
+          <label className='flex flex-col'>
+            Name
+            <input
+              {...register(name)}
+              name={name}
+              id='name'
+              type='text'
+              placeholder='abc'
+              required
+              className='border p-2 rounded'
+            />
+          </label>
+          <label className='flex flex-col'>
+            Email
+            <input
+              {...register(email)}
+              name={email}
+              id='email'
+              type='email'
+              placeholder='abc@mail.com'
+              required
+              className='border p-2 rounded'
+            />
+          </label>
+          <label className='flex flex-col'>
+            Password
+            <input
+              {...register(password)}
+              name={password}
+              id='password'
+              type='password'
+              required
+              className='border p-2 rounded'
+            />
+          </label>
+          <input
+            type='submit'
+            value='Register'
+            className='bg-green-700 text-white p-2 rounded cursor-pointer'
+          />
+          <p className='text-center text-sm'>
             Already have an account?{' '}
-            <Link href='/login' className='underline'>
+            <Link href='/login' className='underline underline-offset-2'>
               Sign in
             </Link>
-          </div>
-        </CardContent>
-      </Card>
+          </p>
+        </div>
+      </div>
     </form>
   );
 };
