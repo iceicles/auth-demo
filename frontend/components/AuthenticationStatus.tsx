@@ -5,12 +5,8 @@ export const AuthenticationStatus = () => {
   const { user } = useAuth();
 
   return !user ? (
-    <h1 className='self-end mr-4 text-l md:text-xl absolute top-8'>
-      🔴 Unauthenticated
-    </h1>
+    <h1 className='self-end mr-4 text-l absolute top-8'>🔴 Unauthenticated</h1>
   ) : (
-    <h1 className='self-end mr-4 text-l md:text-xl absolute top-8'>
-      🟢 Authenticated
-    </h1>
+    <h1 className='self-end mr-4 text-l absolute top-8'>🟢 Authenticated</h1>
   );
 };
