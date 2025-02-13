@@ -52,7 +52,6 @@ export default function Dashboard() {
 
   const renderRandomGreeting = () => {
     const randomGreeting = Math.floor(Math.random() * greetings.length);
-    console.log(greetings[randomGreeting]);
     return (
       <>
         {greetings[randomGreeting]}, {user}!
