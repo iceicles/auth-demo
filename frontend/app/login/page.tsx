@@ -33,7 +33,7 @@ export default function Login() {
 
   const sendFormData = async (userData: IFormValues) => {
     try {
-      const data = await fetch(`${API_URL}/api/v1/auth/login`, {
+      const data = await fetch(`/api/v1/auth/login`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',

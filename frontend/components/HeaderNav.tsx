@@ -10,7 +10,7 @@ export const HeaderNav = () => {
 
   const logoutHandler = async () => {
     try {
-      const request = await fetch(`${API_URL}/api/v1/auth/logout`, {
+      const request = await fetch(`/api/v1/auth/logout`, {
         method: 'delete',
         credentials: 'include',
       });
