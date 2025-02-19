@@ -17,6 +17,7 @@ import mongoSanitize from 'express-mongo-sanitize'
 
 const app = express()
 
+console.log('JWT_SECRET:', process.env.JWT_SECRET); 
 
 const corsOptions = {
   // this shouldn't matter as both the client & server on deployed to same domain
