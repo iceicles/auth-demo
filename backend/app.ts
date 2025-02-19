@@ -1,7 +1,7 @@
 import 'express-async-errors'
 import dotenv from 'dotenv'
 dotenv.config()
-import cors from 'cors'
+// import cors from 'cors'
 import express from 'express'
 import authRouter from './routes/auth'
 import userRouter from './routes/user'
@@ -20,13 +20,13 @@ const app = express()
 // secret passed to cookieParser is required for signed cookies
 app.use(cookieParser(process.env.JWT_SECRET)); 
 
-const corsOptions = {
-  // this shouldn't matter as both the client & server on deployed to same domain
-  origin: 'https://authdemo-dev.vercel.app', // frontend url
-  credentials: true, // allows cookies to be sent
-}
+// const corsOptions = {
+//   // this shouldn't matter as both the client & server on deployed to same domain
+//   origin: 'https://authdemo-dev.vercel.app', // frontend url
+//   credentials: true, // allows cookies to be sent
+// }
 //cors
-app.use(cors(corsOptions))
+// app.use(cors(corsOptions))
 
 // security pkgs
 // app.use(rateLimiter({
