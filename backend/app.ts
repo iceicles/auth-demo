@@ -16,8 +16,6 @@ import mongoSanitize from 'express-mongo-sanitize'
 
 const app = express()
 
-console.log('JWT_SECRET:', process.env.JWT_SECRET); 
-
 const corsOptions = {
   // this shouldn't matter as both the client & server on deployed to same domain
   origin: 'https://authdemo-dev.vercel.app', // frontend url
@@ -37,7 +35,7 @@ app.use(mongoSanitize())
 
 // Before any route or middleware that accesses cookies
 // secret passed to cookieParser is required for signed cookies
-app.use(cookieParser('Lt4uN0qEYrWp30uqcEWfvqLxEoYE6EIU')); 
+app.use(cookieParser(process.env.JWT_SECRET)); 
 
 // middleware
 app.use(express.json())
