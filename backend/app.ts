@@ -37,7 +37,7 @@ app.use(mongoSanitize())
 
 // Before any route or middleware that accesses cookies
 // secret passed to cookieParser is required for signed cookies
-app.use(cookieParser(process.env.JWT_SECRET)); 
+app.use(cookieParser('Lt4uN0qEYrWp30uqcEWfvqLxEoYE6EIU')); 
 
 // middleware
 app.use(express.json())
