@@ -40,7 +40,7 @@ export default function Login() {
           'Content-type': 'application/json',
         },
         body: JSON.stringify({ userData }),
-        credentials: 'include', // allows cookies to be sent with the request and subsequent ones
+        // credentials: 'include', // allows cookies to be sent with the request and subsequent ones
       });
 
       if (data.ok) {
