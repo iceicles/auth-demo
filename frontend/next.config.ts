@@ -4,12 +4,15 @@ import { API_URL } from "./endpoint.constant";
 const nextConfig: NextConfig = {
   /* config options here */
   async rewrites() {
-    return [
-      {
-        source: '/api/v1/:path*',
-        destination: process.env.NODE_ENV === 'development' ? `${API_URL}/api/v1/:path*` : '', // redirects to backend
-      },
-    ];
+    if (process.env.NODE_ENV === 'development' ) {
+      return [
+        {
+          source: '/api/v1/:path*',
+          destination: `${API_URL}/api/v1/:path*`, // redirects to backend
+        },
+      ];
+    }
+    return []; // no rewrites in production or other environments
   },
 };
 
