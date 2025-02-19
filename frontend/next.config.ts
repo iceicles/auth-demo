@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/api/v1/:path*',
-        destination: `${API_URL}/api/v1/:path*`, // redirects to backend
+        destination: process.env.NODE_ENV === 'development' ? `${API_URL}/api/v1/:path*` : '', // redirects to backend
       },
     ];
   },
