@@ -97,14 +97,14 @@ export const logout = async(req: any, res: any) => {
   res.cookie('accessToken', 'logout', {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
-    sameSite: process.env.NODE_ENV === 'development' ? 'Strict' : 'None',
+    sameSite: 'Strict',
     expires: new Date(Date.now())
   })
 
   res.cookie('refreshToken', 'logout', {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
-    sameSite: process.env.NODE_ENV === 'development' ? 'Strict' : 'None',
+    sameSite: 'Strict',
     expires: new Date(Date.now())
   })
 

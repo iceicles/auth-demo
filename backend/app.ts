@@ -72,5 +72,6 @@ const start = async () => {
 
 start()
 
-// used by vercel during deployment
-module.exports = app
+// reason this is needed -- 
+// on vercel, each api request will be handled by a serverless function and vercel requires the export of this handler function
+export default app
