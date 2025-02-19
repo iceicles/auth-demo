@@ -14,7 +14,6 @@ import rateLimiter from 'express-rate-limit'
 import helmet from 'helmet'
 import xss from 'xss'
 import mongoSanitize from 'express-mongo-sanitize'
-import {VercelRequest, VercelResponse} from '@vercel/node'
 
 const app = express()
 
@@ -75,6 +74,6 @@ start()
 
 // reason this is needed -- 
 // on vercel, each api request will be handled by a serverless function and vercel requires the export of this handler function
-export default (req: VercelRequest, res: VercelResponse) => {
+export default (req: any, res: any) => {
   app(req, res); // use the express app handler for the API requests
 };
