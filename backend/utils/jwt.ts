@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken'
 import { IJWTSignature, ITokenUser } from '../interfaces/JWTSig'
 
 
-const JWT_SECRET = process.env.JWT_SECRET || ''
+const JWT_SECRET = process.env.JWT_SECRET as string
 
 // creates JWT with createTokenUser object
 export const createJWT = ({ payload }: {payload: {user: ITokenUser, refreshToken?: string}}) => {
