@@ -13,7 +13,7 @@
   "routes": [
     {
       "src": "/api/v1/(.*)",
-      "dest": "/backend/$1"
+      "dest": "/backend/app.ts"
     },
     {
       "src": "/(.*)",
