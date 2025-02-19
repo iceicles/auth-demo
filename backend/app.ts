@@ -2,6 +2,7 @@ import 'express-async-errors'
 import dotenv from 'dotenv'
 dotenv.config({path: `.env.local`})
 dotenv.config()
+import cors from 'cors'
 import express from 'express'
 import authRouter from './routes/auth'
 import userRouter from './routes/user'
@@ -17,12 +18,13 @@ import mongoSanitize from 'express-mongo-sanitize'
 const app = express()
 
 
-// const corsOptions = {
-//   origin: process.env.CLIENT_URL, // frontend url
-//   credentials: true, // allows cookies to be sent
-// }
-// cors
-// app.use(cors())
+const corsOptions = {
+  // this shouldn't matter as both the client & server on deployed to same domain
+  origin: 'https://authdemo.vercel.app', // frontend url
+  credentials: true, // allows cookies to be sent
+}
+//cors
+app.use(cors(corsOptions))
 
 // security pkgs
 app.use(rateLimiter({
@@ -69,3 +71,6 @@ const start = async () => {
 }
 
 start()
+
+// used by vercel during deployment
+module.exports = app
