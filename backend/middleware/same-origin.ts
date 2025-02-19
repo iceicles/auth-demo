@@ -1,6 +1,12 @@
+// this file is not in use but is useful when you have a server deployed on a different domain and want to make sure
+// only the client that you have configured is allowed to access routes & resources
+
+/*
 import { StatusCodes } from "http-status-codes";
 
-const allowedOrigins = process.env.CLIENT_URL || '';
+
+
+ const allowedOrigins = process.env.CLIENT_URL || '';
 
 // same origin middleware to prevent CSRF
 export const sameOriginMiddleware = (req: any, res: any, next: any) => {
@@ -20,3 +26,4 @@ export const sameOriginMiddleware = (req: any, res: any, next: any) => {
   // block the request if it comes from an untrusted domain
   return res.status(StatusCodes.FORBIDDEN).json({ message: 'Forbidden: Invalid origin' });
 };
+ */

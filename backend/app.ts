@@ -2,7 +2,6 @@ import 'express-async-errors'
 import dotenv from 'dotenv'
 dotenv.config({path: `.env.local`})
 dotenv.config()
-import cors from 'cors'
 import express from 'express'
 import authRouter from './routes/auth'
 import userRouter from './routes/user'
@@ -14,17 +13,16 @@ import rateLimiter from 'express-rate-limit'
 import helmet from 'helmet'
 import xss from 'xss'
 import mongoSanitize from 'express-mongo-sanitize'
-import { sameOriginMiddleware } from './middleware/same-origin'
 
 const app = express()
 
 
-const corsOptions = {
-  origin: process.env.CLIENT_URL, // frontend url
-  credentials: true, // allows cookies to be sent
-}
+// const corsOptions = {
+//   origin: process.env.CLIENT_URL, // frontend url
+//   credentials: true, // allows cookies to be sent
+// }
 // cors
-app.use(cors(corsOptions))
+// app.use(cors())
 
 // security pkgs
 app.use(rateLimiter({
@@ -42,7 +40,7 @@ app.use(cookieParser(process.env.JWT_SECRET));
 // middleware
 app.use(express.json())
 // checks that the origin is the allowed client url
-app.use(sameOriginMiddleware)
+// app.use(sameOriginMiddleware)
 
 // auth routes
 app.use('/api/v1/auth', authRouter)
