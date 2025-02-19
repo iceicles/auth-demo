@@ -1,6 +1,5 @@
 import 'express-async-errors'
 import dotenv from 'dotenv'
-dotenv.config({path: `.env.local`})
 dotenv.config()
 import cors from 'cors'
 import express from 'express'
@@ -21,7 +20,7 @@ console.log('JWT_SECRET:', process.env.JWT_SECRET);
 
 const corsOptions = {
   // this shouldn't matter as both the client & server on deployed to same domain
-  origin: 'https://authdemo.vercel.app', // frontend url
+  origin: 'https://authdemo-dev.vercel.app', // frontend url
   credentials: true, // allows cookies to be sent
 }
 //cors
