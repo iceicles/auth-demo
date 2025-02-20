@@ -20,6 +20,8 @@ const app = express()
 // secret passed to cookieParser is required for signed cookies
 app.use(cookieParser(process.env.JWT_SECRET)); 
 
+console.log(process.env.JWT_SECRET)
+
 // const corsOptions = {
 //   // this shouldn't matter as both the client & server on deployed to same domain
 //   origin: 'https://authdemo-dev.vercel.app', // frontend url

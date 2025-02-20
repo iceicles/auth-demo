@@ -6,6 +6,7 @@ const JWT_SECRET = process.env.JWT_SECRET as string
 
 // creates JWT with createTokenUser object
 export const createJWT = ({ payload }: {payload: {user: ITokenUser, refreshToken?: string}}) => {
+  console.log('jwt_secret - ', JWT_SECRET)
   const token = jwt.sign(payload, JWT_SECRET)
   return token
 }
