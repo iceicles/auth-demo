@@ -35,9 +35,9 @@ console.log(process.env.JWT_SECRET)
 //   windowMs: 15 * 60 * 1000,
 //   limit: 60
 // }))
-app.use(helmet())
-xss('<script>alert("xss");</script>')
-app.use(mongoSanitize())
+// app.use(helmet())
+// xss('<script>alert("xss");</script>')
+// app.use(mongoSanitize())
 
 // middleware
 app.use(express.json())
