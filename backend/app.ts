@@ -18,7 +18,7 @@ const app = express()
 
 // Before any route or middleware that accesses cookies
 // secret passed to cookieParser is required for signed cookies
-app.use(cookieParser(process.env.JWT_SECRET)); 
+// app.use(cookieParser(process.env.JWT_SECRET)); 
 
 console.log(process.env.JWT_SECRET)
 
@@ -45,8 +45,8 @@ app.use(express.json())
 // app.use(sameOriginMiddleware)
 
 // auth routes
-app.use('/api/v1/auth', authRouter)
-app.use('/api/v1/users', userRouter)
+app.use('/api/v1/auth', cookieParser(process.env.JWT_SECRET), authRouter)
+app.use('/api/v1/users', cookieParser(process.env.JWT_SECRET),  userRouter)
 
 app.use(notFoundMW);
 app.use(errorHandlerMW);
