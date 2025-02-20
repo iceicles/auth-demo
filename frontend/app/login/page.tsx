@@ -50,9 +50,14 @@ export default function Login() {
           setAuthUser(res.user);
           router.push('/dashboard');
         }
+      } else {
+        const errorData = await data.json();
+        throw new Error(JSON.stringify(errorData));
       }
-    } catch (error) {
+    } catch (error: any) {
       console.log('error: ', error);
+      const errorResponse = JSON.parse(error.message);
+      alert(errorResponse.msg);
     }
   };
 
