@@ -9,50 +9,50 @@ import token from '../models/token';
   - If the refresh token is invalid or missing, it will respond with an error.
 */
 export const authenticateUser = async (req: any, res: any, next: any) => {
-  const { refreshToken, accessToken } = req.signedCookies;
+  // Destructure cookies, but default to undefined if they're missing
+  const { refreshToken, accessToken } = req.signedCookies || {};
+
+  console.log('access, refresh - ', accessToken, refreshToken);
 
   try {
-    // check access token first because it'll have a shorter expiration
+    // If accessToken exists, validate it
     if (accessToken) {
       const payload = isTokenValid(accessToken);
       req.user = payload.user;
       return next();
     }
 
-    /* checks if refresh token is valid using jwt.verify
-    / decoded using the tokenUser object in login controller and refreshToken value passed to attachCookiesToResponse
-    / -- this is why we can access userId and refreshToken after decoding on payload
-    */
-    const payload = isTokenValid(refreshToken);
+    // If no accessToken, check refreshToken if it exists
+    if (refreshToken) {
+      const payload = isTokenValid(refreshToken);
 
-    // get existing token from db
-    const existingToken = await token.findOne({
-      // both userId (user_.id) and refreshToken properties were used to sign the JWT for refreshToken in attachCookiesToResponse
-      user: payload.user.userId,
-      refreshToken: payload.refreshToken,
-    });
+      // Get existing token from the database
+      const existingToken = await token.findOne({
+        user: payload.user.userId,
+        refreshToken: payload.refreshToken,
+      });
 
-    // check if token doesn't exist and is valid is false
-    // note: isValid can be used to restrict access to user in the future (for any reasons :] )
-    if (!existingToken || !existingToken?.isValid) {
-      throw new UnauthenticatedError('Authentication Invalid');
+      // If the refresh token isn't valid or doesn't exist, throw an error
+      if (!existingToken || !existingToken?.isValid) {
+        throw new UnauthenticatedError('Authentication Invalid');
+      }
+
+      // Attach cookies if refresh token is valid
+      attachCookiesToResponse({
+        res,
+        user: payload.user,
+        refreshToken: existingToken.refreshToken,
+      });
+
+      req.user = payload.user;  // Attach user to req for next steps
+      return next();  // Proceed to next middleware/controller
     }
 
-    // attach both tokens to cookies in response
-    attachCookiesToResponse({
-      res,
-      user: payload.user, // payload contains the JWT signature used to sign both tokens
-      refreshToken: existingToken.refreshToken, // use refreshToken from db to sign refreshToken (not used for access token)
-    });
-
-    /* attach user to req.user to be used by other middleware(s)/controller(s)
-    / for example, /showMe endpoint passes req.user in response
-    / it should be the payload user since it was used to sign the JWT
-    */
-    req.user = payload.user;
-    next(); // call next middleware
+    // If neither token is present, deny access (or you could redirect to login)
+    throw new UnauthenticatedError('Missing authentication tokens');
   } catch (error) {
-    // when the refresh token expires --
+    // console.log('Authentication failed: ', error);
     throw new UnauthenticatedError('Invalid Authentication');
+    // return next(error);  // Pass error to error-handling middleware
   }
-}
+};
