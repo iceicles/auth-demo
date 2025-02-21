@@ -32,7 +32,7 @@ export default function Home() {
         <AuthenticationStatus />
         <div className='m-10 sm:border sm:border-dashed sm:border-slate-800 sm:p-[60px]'>
           <h1 className='mb-4'>
-            This is a Full-stack Authentication Demo App built with{' '}
+            Authentication Demo App built with{' '}
             <a
               href='https://www.geeksforgeeks.org/mern-stack/'
               target='_blank'
@@ -40,7 +40,7 @@ export default function Home() {
             >
               MERN
             </a>{' '}
-            stack. <br />
+            <br />
             Clicking on dashboard below takes you to your personal dashboard.{' '}
             <br /> If you don't have an account, please create one!
           </h1>
