@@ -6,7 +6,6 @@ const JWT_SECRET = process.env.JWT_SECRET as string
 
 // creates JWT with createTokenUser object
 export const createJWT = ({ payload }: {payload: {user: ITokenUser, refreshToken?: string}}) => {
-  console.log('jwt_secret - ', JWT_SECRET)
   const token = jwt.sign(payload, JWT_SECRET)
   return token
 }
@@ -27,7 +26,7 @@ export const attachCookiesToResponse = ({ res, user, refreshToken }: {res: any, 
     httpOnly: true, // ensure the cookie is not accessible via javascript
     secure: process.env.NODE_ENV === 'production', // only true in production
     sameSite: 'Strict',
-    signed: true, // verifies that the contents of the cookie have not been changed by the user so it can be trusted
+    signed: false, // disabled (for now) verifies that the contents of the cookie have not been changed by the user so it can be trusted
     expires: new Date(Date.now() + oneDay), // 1 day before cookie expires
   })
 
@@ -35,7 +34,7 @@ export const attachCookiesToResponse = ({ res, user, refreshToken }: {res: any, 
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'Strict',
-    signed: true,
+    signed: false,
     expires: new Date(Date.now() + longerExp) // 1 day from current date
   })
 }

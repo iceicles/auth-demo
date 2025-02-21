@@ -17,10 +17,7 @@ import mongoSanitize from 'express-mongo-sanitize'
 const app = express()
 
 // Before any route or middleware that accesses cookies
-// secret passed to cookieParser is required for signed cookies
-// app.use(cookieParser(process.env.JWT_SECRET)); 
-
-console.log(process.env.JWT_SECRET)
+app.use(cookieParser()); 
 
 // const corsOptions = {
 //   // this shouldn't matter as both the client & server on deployed to same domain
@@ -35,9 +32,9 @@ console.log(process.env.JWT_SECRET)
 //   windowMs: 15 * 60 * 1000,
 //   limit: 60
 // }))
-// app.use(helmet())
-// xss('<script>alert("xss");</script>')
-// app.use(mongoSanitize())
+app.use(helmet())
+xss('<script>alert("xss");</script>')
+app.use(mongoSanitize())
 
 // middleware
 app.use(express.json())
@@ -45,8 +42,8 @@ app.use(express.json())
 // app.use(sameOriginMiddleware)
 
 // auth routes
-app.use('/api/v1/auth', cookieParser(process.env.JWT_SECRET), authRouter)
-app.use('/api/v1/users', cookieParser(process.env.JWT_SECRET),  userRouter)
+app.use('/api/v1/auth', authRouter)
+app.use('/api/v1/users',  userRouter)
 
 app.use(notFoundMW);
 app.use(errorHandlerMW);

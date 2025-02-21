@@ -31,8 +31,6 @@ export const login = async (req: any, res: any) => {
   
   // find the associated user's email in db
   const user = await userSchema.findOne({email})
-
-  console.log('user - ', user)
   
   // if user doesn't exist in db
   if (!user) {
@@ -42,7 +40,6 @@ export const login = async (req: any, res: any) => {
   // check if password is correct with password stored in db
   const isPasswordCorrect = await user.comparePassword(password);
   if (!isPasswordCorrect) {
-    console.log('password incorrect')
     throw new UnauthenticatedError('Invalid Credentials')
   }
 
@@ -58,8 +55,6 @@ export const login = async (req: any, res: any) => {
   // if token exists, set refresh token to token stored in db
   if (existingToken) {
     const { isValid } = existingToken
-
-    console.log('existing token?')
 
     // can manually override in db to restrict user access
     if (!isValid) {
