@@ -26,9 +26,9 @@ export default function Home() {
   }
 
   return (
-    <>
+    <div className='flex flex-col min-h-screen m-0'>
       <HeaderNav />
-      <div className='flex flex-col items-center justify-center h-screen relative'>
+      <div className='flex flex-col items-center justify-center flex-1 relative'>
         <AuthenticationStatus />
         <div className='m-10 sm:border sm:border-dashed sm:border-slate-800 sm:p-[60px]'>
           <h1 className='mb-4'>
@@ -48,6 +48,15 @@ export default function Home() {
         </div>
         {dashboardBtn()}
       </div>
-    </>
+      <footer className='mx-4 my-4'>
+        <a
+          href='https://github.com/iceicles/auth-demo'
+          target='__blank'
+          className='mx-4 p-2 rounded-sm text-center bg-gray-400 animate-pulse'
+        >
+          Github
+        </a>
+      </footer>
+    </div>
   );
 }
