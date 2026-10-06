@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node app.ts",
+    "start": "tsx app.ts",
     "dev": "nodemon app.ts"
   },
   "author": "iceicles",
@@ -34,6 +34,7 @@
     "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^22.10.1",
     "@types/nodemon": "^1.19.6",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "tsx": "^4.23.15"
   }
 }
