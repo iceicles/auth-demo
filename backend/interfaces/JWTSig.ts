@@ -1,6 +1,8 @@
+import { Types } from "mongoose";
+
 // interface used in creating user property for jwt signature
 export interface ITokenUser {
-  userId: string;
+  userId: Types.ObjectId;
   name: string;
 }
 

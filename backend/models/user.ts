@@ -1,4 +1,4 @@
-import mongoose, { Document } from "mongoose";
+import mongoose, { Document, Types} from "mongoose";
 import bcrypt from 'bcryptjs'
 
 export interface IUser extends Document {
@@ -7,8 +7,8 @@ export interface IUser extends Document {
   password: string;
   createJWT(): string;
   createRefreshToken(): string;
-  comparePassword(arg: string): string;
-  _id: string;
+  comparePassword(arg: string): Promise<boolean>;
+  _id: Types.ObjectId;
 }
 
 const userSchema = new mongoose.Schema<IUser>({
