@@ -1,23 +1,27 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "frontend/package.json",
-      "use": "@vercel/next"
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "services": {
+    "backend": {
+      "root": "backend",
+      "framework": "express"
     },
-    {
-      "src": "backend/app.ts",
-      "use": "@vercel/node"
+    "frontend": {
+      "root": "frontend",
+      "framework": "nextjs"
     }
-  ],
-  "routes": [
+  },
+  "rewrites": [
     {
-      "src": "/api/v1/(.*)",
-      "dest": "/backend/app.ts"
+      "source": "/api/(.*)",
+      "destination": {
+        "service": "backend"
+      }
     },
     {
-      "src": "/(.*)",
-      "dest": "/frontend/$1"
+      "source": "/(.*)",
+      "destination": {
+        "service": "frontend"
+      }
     }
   ]
 }
